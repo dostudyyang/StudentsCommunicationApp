@@ -8,7 +8,7 @@
     <color name="secondaryColor">#939B91</color>
     <color name="purple_200">#FFFFFF</color>
     <color name="purple_500">#084812</color>
-    <color name="purple_700">@color/colorAccent</color>
+    <color name="purple_700">#66C047</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
