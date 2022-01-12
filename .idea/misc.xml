@@ -5,12 +5,14 @@
       <map>
         <entry key="app/src/main/res/drawable/button_bg.xml" value="0.315625" />
         <entry key="app/src/main/res/drawable/edit_text_bg.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/emoji.xml" value="0.315625" />
         <entry key="app/src/main/res/drawable/received_bubble.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/received_bubble_tail.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/send_circle.xml" value="0.315625" />
         <entry key="app/src/main/res/drawable/send_msg_bg.xml" value="0.315625" />
         <entry key="app/src/main/res/drawable/sent_bubble.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/sent_bubble_tail.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2994791666666667" />
       </map>
     </option>
   </component>
@@ -19,5 +21,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.2994791666666667" />
+      </ProjectState>
+    </option>
   </component>
 </project>
