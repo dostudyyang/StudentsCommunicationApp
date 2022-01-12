@@ -7,4 +7,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="email_icon">Email Icon</string>
     <string name="password_icon">Password Icon</string>
+    <string name="username">Username</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>

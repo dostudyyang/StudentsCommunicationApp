@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/emailIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="12dp"
@@ -58,12 +58,12 @@
 
             <ImageView
                 android:id="@+id/passwordIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="12dp"
-                android:src="@drawable/email"/>
+                android:src="@drawable/password"/>
 
             <EditText
                 android:id="@+id/passwordEditText"
