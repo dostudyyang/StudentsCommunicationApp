@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/button_bg.xml" value="0.315625" />
+        <entry key="app/src/main/res/drawable/edit_text_bg.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/received_bubble.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/received_bubble_tail.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/send_circle.xml" value="0.315625" />
+        <entry key="app/src/main/res/drawable/send_msg_bg.xml" value="0.315625" />
         <entry key="app/src/main/res/drawable/sent_bubble.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/sent_bubble_tail.xml" value="0.2140625" />
       </map>
