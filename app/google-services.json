@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "228605046165",
+    "project_id": "college-students-comm-app",
+    "storage_bucket": "college-students-comm-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228605046165:android:c7f65fba70a14990545a9c",
+        "android_client_info": {
+          "package_name": "com.example.college_students_communication_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "228605046165-9ku3hq0o7gm1bdeb5052s633cpg77b3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRus4F1yRxNjA6ay--I0HypN804rEu9ig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "228605046165-9ku3hq0o7gm1bdeb5052s633cpg77b3v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
