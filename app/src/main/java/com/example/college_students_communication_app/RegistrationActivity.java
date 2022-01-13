@@ -10,6 +10,7 @@ import com.example.college_students_communication_app.databinding.ActivityLoginB
 import com.example.college_students_communication_app.databinding.ActivityRegistrationBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -26,5 +27,10 @@ public class RegistrationActivity extends AppCompatActivity {
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        mAuth = FirebaseAuth.getInstance();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+
+        loadingBar = new ProgressDialog(this);
     }
 }
