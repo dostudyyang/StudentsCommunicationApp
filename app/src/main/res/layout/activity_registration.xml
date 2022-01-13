@@ -7,7 +7,7 @@
     android:background="@color/backgroundColor"
     tools:context=".RegistrationActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,10 +17,15 @@
 
         <RelativeLayout
             android:id="@+id/username_field"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/edit_text_bg">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/phone_field"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/edit_text_bg"
+            >
 
             <ImageView
                 android:id="@+id/userIcon"
@@ -34,7 +39,7 @@
             <EditText
                 android:id="@+id/usernameEditText"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/userIcon"
@@ -51,9 +56,13 @@
 
         <RelativeLayout
             android:id="@+id/phone_field"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@id/username_field"
+            app:layout_constraintBottom_toTopOf="@id/email_field"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/edit_text_bg">
 
             <ImageView
@@ -68,12 +77,12 @@
             <EditText
                 android:id="@+id/phoneEditText"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/phoneIcon"
                 android:backgroundTint="@android:color/transparent"
-                android:hint="@string/username"
+                android:hint="@string/phone"
                 android:inputType="phone"
                 android:nextFocusDown="@id/emailEditText"
                 android:padding="15dp"
@@ -85,10 +94,14 @@
 
         <RelativeLayout
             android:id="@+id/email_field"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/edit_text_bg">
+            android:background="@drawable/edit_text_bg"
+            app:layout_constraintTop_toBottomOf="@id/phone_field"
+            app:layout_constraintBottom_toTopOf="@id/password_field"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
                 android:id="@+id/emailIcon"
@@ -102,7 +115,7 @@
             <EditText
                 android:id="@+id/emailEditText"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/emailIcon"
@@ -119,9 +132,13 @@
 
         <RelativeLayout
             android:id="@+id/password_field"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@id/email_field"
+            app:layout_constraintBottom_toTopOf="@id/confirmPassword_field"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/edit_text_bg">
 
             <ImageView
@@ -136,7 +153,7 @@
             <EditText
                 android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_toEndOf="@id/passwordIcon"
                 android:backgroundTint="@android:color/transparent"
@@ -152,9 +169,13 @@
 
         <RelativeLayout
             android:id="@+id/confirmPassword_field"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@id/password_field"
+            app:layout_constraintBottom_toTopOf="@id/signupButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/edit_text_bg">
 
             <ImageView
@@ -169,7 +190,7 @@
             <EditText
                 android:id="@+id/confirmPasswordEditText"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_toEndOf="@id/confirmPasswordIcon"
                 android:backgroundTint="@android:color/transparent"
@@ -185,7 +206,10 @@
         <Button
             android:id="@+id/signupButton"
             android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:layout_height="42dp"
+            app:layout_constraintTop_toBottomOf="@id/confirmPassword_field"
+            app:layout_constraintBottom_toTopOf="@id/signup_option"
+            app:layout_constraintStart_toStartOf="@id/username_field"
             android:layout_marginTop="15dp"
             android:background="@drawable/button_bg"
             android:paddingStart="25dp"
@@ -199,6 +223,10 @@
             android:id="@+id/signup_option"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/signupButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:gravity="center">
@@ -216,7 +244,7 @@
 
             <Button
                 android:id="@+id/login_link"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
                 android:background="@android:color/transparent"
@@ -228,6 +256,6 @@
                 android:textSize="14sp" />
 
         </RelativeLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
