@@ -2,13 +2,12 @@ package com.example.college_students_communication_app.models;
 
 public class Chat {
 
-    public String message, senderId, messageId;
+    public String message, senderId;
     public long time;
 
-    public Chat(String message, String senderId, String messageId, long time) {
+    public Chat(String message, String senderId, long time) {
         this.message = message;
         this.senderId = senderId;
-        this.messageId = messageId;
         this.time = time;
     }
 
@@ -26,14 +25,6 @@ public class Chat {
 
     public void setSenderId(String senderId) {
         this.senderId = senderId;
-    }
-
-    public String getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
     }
 
     public long getTime() {

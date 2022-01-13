@@ -3,19 +3,19 @@ package com.example.college_students_communication_app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.college_students_communication_app.Adapters.GroupMessageAdapter;
 import com.example.college_students_communication_app.databinding.ActivityGroupChatBinding;
-import com.example.college_students_communication_app.databinding.ActivityJoinGroupBinding;
 import com.example.college_students_communication_app.models.Chat;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -69,7 +69,7 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (view == binding.sendMessageButton){
-
+            sendChatMessage();
         }
     }
 
@@ -95,5 +95,28 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
 
             }
         });
+    }
+
+    private void sendChatMessage()
+    {
+        String chatText = binding.inputMessage.getText().toString();
+        long time = System.currentTimeMillis();
+
+        if (!TextUtils.isEmpty(chatText))
+        {
+            Chat chat = new Chat(chatText, messageSenderID, time);
+
+            RootRef.child("Chats").child(groupCode).setValue(chat).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task)
+                {
+                    if (!task.isSuccessful())
+                    {
+                        Toast.makeText(GroupChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                    binding.inputMessage.setText("");
+                }
+            });
+        }
     }
 }
