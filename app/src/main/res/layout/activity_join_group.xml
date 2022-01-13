@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     tools:context=".JoinGroupActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/groupCodeEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="@drawable/edit_text_bg"
+            android:layout_marginStart="5dp"
+            android:hint="@string/enter_code"
+            android:inputType="textEmailAddress"
+            android:nextFocusDown="@+id/passwordEditText"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/secondaryColor"
+            android:textSize="20sp" />
+
+
+
+        <Button
+            android:id="@+id/joinGroupButton"
+            android:layout_width="115dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_bg"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:src="@drawable/password"
+            android:text="@string/join"
+            android:textColor="#FFFFFFFF"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+    </LinearLayout>
+
+</RelativeLayout>
