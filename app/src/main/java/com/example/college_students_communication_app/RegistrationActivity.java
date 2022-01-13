@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -49,11 +50,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         if (view == binding.signupButton){
-
+            signUp();
         }
 
         if (view == binding.loginLink){
-
+            sendUserToLoginActivity();
         }
     }
 
@@ -89,7 +90,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void CreateNewAccount()
+    private void signUp()
     {
         String username = binding.usernameEditText.getText().toString();
         String phone = binding.phoneEditText.getText().toString();
@@ -105,7 +106,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
         else
         {
-            loadingBar.setTitle("Creating New Account");
+            loadingBar.setTitle("Sign Up");
             loadingBar.setMessage("Please wait...");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
@@ -117,22 +118,37 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         {
                             if (task.isSuccessful())
                             {
+                                loadingBar.dismiss();
 
                                 String currentUserID = mAuth.getCurrentUser().getUid();
                                 User user = new User(currentUserID, email, username, phone);
                                 mRootRef.child("Users").child(currentUserID).setValue(user);
 
-                                //SendUserToJoinGroupActivity();
+                                sendUserToJoinGroupActivity();
                             }
                             else
                             {
+                                loadingBar.dismiss();
                                 String message = task.getException().toString();
                                 Toast.makeText(RegistrationActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
                             }
 
-                            loadingBar.dismiss();
                         }
                     });
         }
+    }
+
+    public void sendUserToJoinGroupActivity(){
+        Intent mainIntent = new Intent(RegistrationActivity.this, JoinGroupActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
+    }
+
+    public void sendUserToLoginActivity(){
+        Intent mainIntent = new Intent(RegistrationActivity.this, LoginActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 }
