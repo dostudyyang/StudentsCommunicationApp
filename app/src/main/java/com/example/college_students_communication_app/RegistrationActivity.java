@@ -1,5 +1,6 @@
 package com.example.college_students_communication_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -7,12 +8,18 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.college_students_communication_app.databinding.ActivityLoginBinding;
 import com.example.college_students_communication_app.databinding.ActivityRegistrationBinding;
+import com.example.college_students_communication_app.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -79,6 +86,53 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
         else {
             return true;
+        }
+    }
+
+    private void CreateNewAccount()
+    {
+        String username = binding.usernameEditText.getText().toString();
+        String phone = binding.phoneEditText.getText().toString();
+        String email = binding.emailEditText.getText().toString();
+        String password = binding.passwordEditText.getText().toString();
+        String confirmPassword = binding.confirmPasswordEditText.getText().toString();
+
+        if(!validateInputs(email, password, phone, confirmPassword, username))
+        {
+
+            validateInputs(email, password, phone, confirmPassword, username);
+
+        }
+        else
+        {
+            loadingBar.setTitle("Creating New Account");
+            loadingBar.setMessage("Please wait...");
+            loadingBar.setCanceledOnTouchOutside(true);
+            loadingBar.show();
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task)
+                        {
+                            if (task.isSuccessful())
+                            {
+
+                                String currentUserID = mAuth.getCurrentUser().getUid();
+                                User user = new User(currentUserID, email, username, phone);
+                                mRootRef.child("Users").child(currentUserID).setValue(user);
+
+                                //SendUserToJoinGroupActivity();
+                            }
+                            else
+                            {
+                                String message = task.getException().toString();
+                                Toast.makeText(RegistrationActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
+                            }
+
+                            loadingBar.dismiss();
+                        }
+                    });
         }
     }
 }
