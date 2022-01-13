@@ -13,4 +13,5 @@
     <string name="enter_code">Enter Code...</string>
     <string name="join">JOIN</string>
     <string name="phone">Phone</string>
+    <string name="hello">Hello.</string>
 </resources>
