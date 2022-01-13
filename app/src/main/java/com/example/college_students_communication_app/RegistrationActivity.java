@@ -11,7 +11,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.college_students_communication_app.databinding.ActivityLoginBinding;
 import com.example.college_students_communication_app.databinding.ActivityRegistrationBinding;
 import com.example.college_students_communication_app.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,7 +19,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
 
