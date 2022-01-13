@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loadingBar = new ProgressDialog(this);
 
         binding.passwordLoginButton.setOnClickListener(this);
+        binding.signupLink.setOnClickListener(this);
     }
 
     @Override
@@ -55,13 +56,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null)
         {
-            //SendUserJoinGroupActivity();
+            sendUserToJoinGroupActivity();
         }
     }
 
     @Override
     public void onClick(View view) {
+        if (view == binding.passwordLoginButton){
+            logIn();
+        }
 
+        if (view == binding.signupLink){
+            sendUserToRegistrationActivity();
+        }
     }
 
     public boolean validateInputs(String email, String password){
@@ -100,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         {
                             if (task.isSuccessful())
                             {
-                                //SendUserToJoinGroupActivity();
+                                sendUserToJoinGroupActivity();
                             }
                             else
                             {
