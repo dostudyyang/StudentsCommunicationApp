@@ -3,23 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingEnd="40dp">
 
     <TextView
-        android:id="@+id/sentMessageText"
+        android:id="@+id/senderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Vincent Kipngeno"
+        android:textSize="16sp"
+        android:textColor="@color/secondaryColor"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"/>
+
+    <TextView
+        android:id="@+id/receivedMessageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/senderName"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/received_bubble_tail"
         android:text="@string/hello"
         android:textSize="16sp"
         android:textColor="@color/white"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"/>
+        android:padding="10dp"/>
 
     <TextView
-        android:id="@+id/sentMessageTime"
+        android:id="@+id/receivedMessageTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/sentMessageText"
