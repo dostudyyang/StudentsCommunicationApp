@@ -23,12 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/sentMessageText"
-        app:layout_constraintEnd_toEndOf="@id/sentMessageText"
+        app:layout_constraintStart_toStartOf="@id/sentMessageText"
         android:text="@string/_10_20"
         android:textSize="12sp"
         android:textColor="@color/secondaryColor"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginStart="7dp"
         android:textStyle="bold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
