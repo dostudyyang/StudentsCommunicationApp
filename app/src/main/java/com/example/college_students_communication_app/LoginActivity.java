@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityLoginBinding binding;
 
@@ -31,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        binding.passwordLoginButton.setOnClickListener(this);
     }
 
     @Override
@@ -43,5 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         {
             //SendUserJoinGroupActivity();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }
