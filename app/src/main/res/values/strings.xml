@@ -14,4 +14,5 @@
     <string name="join">JOIN</string>
     <string name="phone">Phone</string>
     <string name="hello">Hello.</string>
+    <string name="_10_20">10:20</string>
 </resources>
