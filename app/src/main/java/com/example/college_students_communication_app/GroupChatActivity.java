@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GroupChatActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,11 +61,9 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
 
         groupCode = getIntent().getExtras().get("groupCode").toString();
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
-
-        actionBar.setTitle(groupCode);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle(groupCode);
 
         groupMessageAdapter = new GroupMessageAdapter(chats);
         linearLayoutManager = new LinearLayoutManager(this);
