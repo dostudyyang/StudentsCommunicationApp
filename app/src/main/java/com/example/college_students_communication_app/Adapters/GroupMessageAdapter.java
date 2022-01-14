@@ -32,16 +32,32 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
     private String currentUid;
     private DatabaseReference mRootRef;
 
+    final int LAYOUT_SENT = 0;
+    final int LAYOUT_RECEIVED = 1;
+
 
     public GroupMessageAdapter(List<Chat> groupMessages)
     {
         this.groupMessages = groupMessages;
     }
 
+    @Override
+    public int getItemViewType(int position)
+    {
+
+        currentUid = FirebaseAuth.getInstance().getUid();
+
+        if (currentUid.equals(groupMessages.get(position).getSenderId()))
+            return LAYOUT_SENT;
+        else
+            return LAYOUT_RECEIVED;
+
+    }
+
 
     @NonNull
     @Override
-    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+    public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType)
     {
         View view;
 
@@ -49,11 +65,11 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
                 .inflate(R.layout.received_message_layout, viewGroup, false);
 
         mAuth = FirebaseAuth.getInstance();
+        mRootRef = FirebaseDatabase.getInstance().getReference();
 
         currentUid = mAuth.getUid();
 
-        assert currentUid != null;
-        if (currentUid.equals(groupMessages.get(i).getSenderId())){
+        if (viewType == LAYOUT_SENT){
 
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.sent_message_layout, viewGroup, false);
@@ -94,7 +110,7 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
 
                 sentMessageText.setText(chat.getMessage());
                 long millis = chat.getTime();
-                String hm = String.format(Locale.getDefault(),"%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis), TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1));
+                String hm = String.format(Locale.getDefault(),"%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis) % TimeUnit.DAYS.toHours(1), TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1));
                 sentMessageTime.setText(hm);
             }
 
@@ -109,13 +125,16 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
                 String hm = String.format(Locale.getDefault(),"%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis) % TimeUnit.DAYS.toHours(1), TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1));
                 receivedMessageTime.setText(hm);
 
+                assert chat.getSenderId()!=null;
                 mRootRef.child("Users").child(chat.getSenderId()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.getValue(User.class);
+                        if (dataSnapshot.exists()){
+                            User user = dataSnapshot.getValue(User.class);
 
-                        assert user != null;
-                        senderName.setText(user.getUsername());
+                            assert user != null;
+                            senderName.setText(user.getUsername());
+                        }
                     }
 
                     @Override

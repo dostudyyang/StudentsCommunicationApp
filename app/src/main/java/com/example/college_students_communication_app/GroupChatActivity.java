@@ -81,6 +81,34 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    ValueEventListener chatValueEventListener = new ValueEventListener() {
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            if (dataSnapshot.exists()){
+                Chat chat = dataSnapshot.getValue(Chat.class);
+
+                saveChatToSqlite(chat);
+
+                RootRef.child("Chats").child(groupCode).removeValue();
+
+                chats.clear();
+                chats.addAll(getChatsFromSqlLite());
+
+                groupMessageAdapter.notifyDataSetChanged();
+
+                binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+
+    };
+
     @Override
     protected void onStart()
     {
@@ -88,38 +116,14 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
 
         chats.clear();
         chats.addAll(getChatsFromSqlLite());
-        RootRef.child("Chats").child(groupCode).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.exists()){
-                    Chat chat = dataSnapshot.getValue(Chat.class);
-
-                    saveChatToSqlite(chat);
-
-                    RootRef.child("Chats").child(groupCode).removeValue();
-
-                    chats.clear();
-                    chats.addAll(getChatsFromSqlLite());
-
-                    groupMessageAdapter.notifyDataSetChanged();
-
-                    binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        RootRef.child("Chats").child(groupCode).addValueEventListener(chatValueEventListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        RootRef.child("Chats").child(groupCode).removeEventListener(ValueEventListener);
+        RootRef.child("Chats").child(groupCode).removeEventListener(chatValueEventListener);
     }
 
     private void sendChatMessage()
@@ -129,7 +133,8 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
 
         if (!TextUtils.isEmpty(chatText))
         {
-            Chat chat = new Chat(chatText, messageSenderID, time, groupCode);
+            String currentUserID = mAuth.getCurrentUser().getUid();
+            Chat chat = new Chat(chatText, currentUserID, time, groupCode);
 
             RootRef.child("Chats").child(groupCode).setValue(chat).addOnCompleteListener(new OnCompleteListener() {
                 @Override
@@ -138,10 +143,13 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
                     if (!task.isSuccessful())
                     {
                         Toast.makeText(GroupChatActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        binding.inputMessage.setText("");
                     }
                     binding.inputMessage.setText("");
                 }
             });
+
+            binding.inputMessage.setText("");
         }
     }
 
