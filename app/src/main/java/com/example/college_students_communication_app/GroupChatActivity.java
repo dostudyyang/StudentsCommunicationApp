@@ -5,8 +5,10 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -37,6 +39,7 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
     private String messageSenderID;
     private String groupCode;
     ChatReaderDbHelper dbHelper;
+    int count;
 
     private final List<Chat> chats = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
@@ -54,7 +57,6 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
         RootRef = FirebaseDatabase.getInstance().getReference();
 
         dbHelper = new ChatReaderDbHelper(GroupChatActivity.this);
-
 
         groupCode = getIntent().getExtras().get("groupCode").toString();
 
@@ -83,17 +85,27 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
     protected void onStart()
     {
         super.onStart();
+
         chats.clear();
+        chats.addAll(getChatsFromSqlLite());
         RootRef.child("Chats").child(groupCode).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Chat chat = dataSnapshot.getValue(Chat.class);
 
-                //chats.add(chat);
+                if (dataSnapshot.exists()){
+                    Chat chat = dataSnapshot.getValue(Chat.class);
 
-                groupMessageAdapter.notifyDataSetChanged();
+                    saveChatToSqlite(chat);
 
-                binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
+                    RootRef.child("Chats").child(groupCode).removeValue();
+
+                    chats.clear();
+                    chats.addAll(getChatsFromSqlLite());
+
+                    groupMessageAdapter.notifyDataSetChanged();
+
+                    binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
+                }
             }
 
             @Override
@@ -103,6 +115,13 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        RootRef.child("Chats").child(groupCode).removeEventListener(ValueEventListener);
+    }
+
     private void sendChatMessage()
     {
         String chatText = binding.inputMessage.getText().toString();
@@ -110,7 +129,7 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
 
         if (!TextUtils.isEmpty(chatText))
         {
-            Chat chat = new Chat(chatText, messageSenderID, time);
+            Chat chat = new Chat(chatText, messageSenderID, time, groupCode);
 
             RootRef.child("Chats").child(groupCode).setValue(chat).addOnCompleteListener(new OnCompleteListener() {
                 @Override
@@ -131,5 +150,44 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         long newRowId = db.insert(ChatDataReaderContract.ChatDataEntry.TABLE_NAME, null, chat.getChatValues());
 
+    }
+
+    public List<Chat> getChatsFromSqlLite(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String[] projection = {
+                ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_MESSAGE,
+                ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_SENDER,
+                ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_GROUP_CODE,
+                ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_TIME
+        };
+
+        String selection = ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_GROUP_CODE + " = ?";
+        String[] selectionArgs = { groupCode };
+
+        String sortOrder = ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_TIME + " ASC";
+
+        Cursor cursor = db.query(
+                ChatDataReaderContract.ChatDataEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                sortOrder
+        );
+
+        List<Chat> chats = new ArrayList<>();
+        while(cursor.moveToNext()) {
+            String message = cursor.getString(cursor.getColumnIndexOrThrow(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_MESSAGE));
+            String sender = cursor.getString(cursor.getColumnIndexOrThrow(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_SENDER));
+            String groupCode = cursor.getString(cursor.getColumnIndexOrThrow(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_GROUP_CODE));
+            long time = cursor.getLong(cursor.getColumnIndexOrThrow(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_TIME));
+            Chat chat = new Chat(message, sender, time, groupCode);
+            chats.add(chat);
+        }
+        cursor.close();
+
+        return chats;
     }
 }

@@ -106,7 +106,7 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
                 receivedMessageText.setText(chat.getMessage());
 
                 long millis = chat.getTime();
-                String hm = String.format(Locale.getDefault(),"%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis), TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1));
+                String hm = String.format(Locale.getDefault(),"%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis) % TimeUnit.DAYS.toHours(1), TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1));
                 receivedMessageTime.setText(hm);
 
                 mRootRef.child("Users").child(chat.getSenderId()).addValueEventListener(new ValueEventListener() {

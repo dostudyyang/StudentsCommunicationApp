@@ -15,7 +15,7 @@ public class ChatReaderDbHelper extends SQLiteOpenHelper {
         db.execSQL(ChatDataReaderContract.SQL_CREATE_CHAT);
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(ChatDataReaderContract.SQL_DELETE_CHAT);
+        //db.execSQL(ChatDataReaderContract.SQL_DELETE_CHAT);
         onCreate(db);
     }
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {

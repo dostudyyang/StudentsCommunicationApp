@@ -10,14 +10,16 @@ public class ChatDataReaderContract {
         public static final String TABLE_NAME = "chat";
         public static final String COLUMN_NAME_MESSAGE = "message";
         public static final String COLUMN_NAME_SENDER = "senderId";
+        public static final String COLUMN_NAME_GROUP_CODE = "groupCode";
         public static final String COLUMN_NAME_TIME = "time";
     }
 
     public static final String SQL_CREATE_CHAT =
-            "CREATE TABLE " + ChatDataEntry.TABLE_NAME + " (" +
+            "CREATE TABLE IF NOT EXISTS" + ChatDataEntry.TABLE_NAME + " (" +
                     ChatDataEntry._ID + " INTEGER PRIMARY KEY," +
                     ChatDataEntry.COLUMN_NAME_MESSAGE + " TEXT," +
                     ChatDataEntry.COLUMN_NAME_SENDER + " TEXT,"+
+                    ChatDataEntry.COLUMN_NAME_GROUP_CODE + " TEXT,"+
                     ChatDataEntry.COLUMN_NAME_TIME+ " INTEGER)";
 
     public static final String SQL_DELETE_CHAT =

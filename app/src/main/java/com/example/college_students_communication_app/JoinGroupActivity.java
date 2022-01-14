@@ -35,7 +35,6 @@ public class JoinGroupActivity extends AppCompatActivity implements View.OnClick
                 Intent mainIntent = new Intent(JoinGroupActivity.this, GroupChatActivity.class);
                 mainIntent.putExtra("groupCode", groupCode);
                 startActivity(mainIntent);
-                finish();
             }
         }
     }
