@@ -1,5 +1,12 @@
 package com.example.college_students_communication_app.models;
 
+import android.content.ContentValues;
+
+import com.example.college_students_communication_app.contracts.ChatDataReaderContract;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Chat {
 
     public String message, senderId;
@@ -39,4 +46,13 @@ public class Chat {
         this.time = time;
     }
 
+    public ContentValues getChatValues(){
+
+        ContentValues chatValues = new ContentValues();
+        chatValues.put(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_MESSAGE, message);
+        chatValues.put(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_SENDER, senderId);
+        chatValues.put(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_TIME, time);
+
+        return chatValues;
+    }
 }

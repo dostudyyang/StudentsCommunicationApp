@@ -5,12 +5,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.college_students_communication_app.Adapters.GroupMessageAdapter;
+import com.example.college_students_communication_app.contracts.ChatDataReaderContract;
+import com.example.college_students_communication_app.contracts.ChatReaderDbHelper;
 import com.example.college_students_communication_app.databinding.ActivityGroupChatBinding;
 import com.example.college_students_communication_app.models.Chat;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +36,7 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
     private DatabaseReference RootRef;
     private String messageSenderID;
     private String groupCode;
+    ChatReaderDbHelper dbHelper;
 
     private final List<Chat> chats = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
@@ -48,6 +52,8 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
+
+        dbHelper = new ChatReaderDbHelper(GroupChatActivity.this);
 
 
         groupCode = getIntent().getExtras().get("groupCode").toString();
@@ -118,5 +124,12 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
                 }
             });
         }
+    }
+
+    public void saveChatToSqlite(Chat chat){
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        long newRowId = db.insert(ChatDataReaderContract.ChatDataEntry.TABLE_NAME, null, chat.getChatValues());
+
     }
 }
