@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -103,14 +104,19 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
         }
 
         public void bindViews(Chat chat){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(chat.getTime());
+
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+            String hm = hour + ":" + minute;
+
             if (currentUid.equals(groupMessages.get(getLayoutPosition()).getSenderId())){
 
                 TextView sentMessageText = itemView.findViewById(R.id.sentMessageText);
                 TextView sentMessageTime = itemView.findViewById(R.id.sentMessageTime);
 
                 sentMessageText.setText(chat.getMessage());
-                long millis = chat.getTime();
-                String hm = String.format(Locale.getDefault(),"%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis) % TimeUnit.DAYS.toHours(1), TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1));
                 sentMessageTime.setText(hm);
             }
 
@@ -120,9 +126,6 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
                 TextView senderName = itemView.findViewById(R.id.senderName);
 
                 receivedMessageText.setText(chat.getMessage());
-
-                long millis = chat.getTime();
-                String hm = String.format(Locale.getDefault(),"%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis) % TimeUnit.DAYS.toHours(1), TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1));
                 receivedMessageTime.setText(hm);
 
                 assert chat.getSenderId()!=null;
