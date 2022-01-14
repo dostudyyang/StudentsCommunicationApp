@@ -5,6 +5,10 @@ public class Chat {
     public String message, senderId;
     public long time;
 
+    public Chat(){
+
+    }
+
     public Chat(String message, String senderId, long time) {
         this.message = message;
         this.senderId = senderId;
