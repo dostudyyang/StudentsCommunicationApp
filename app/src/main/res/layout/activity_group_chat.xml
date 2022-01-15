@@ -1,9 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
     tools:context=".GroupChatActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupChatMessages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sent_chat_linear_layout"
+        android:layout_marginBottom="6dp"/>
+
+    <RelativeLayout
+        android:id="@+id/sent_chat_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3D513A"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/chat_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/sendMessageButton"
+            android:background="@drawable/send_msg_bg"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/input_message"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="8dp"
+                android:layout_toStartOf="@id/emojiIconButton"
+                android:backgroundTint="@android:color/transparent"
+                android:hint="Type message here..."
+                android:maxLines="5"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+
+            <ImageButton
+                android:id="@+id/emojiIconButton"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:backgroundTint="@android:color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/emoji" />
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/sendMessageButton"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sendbutton"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

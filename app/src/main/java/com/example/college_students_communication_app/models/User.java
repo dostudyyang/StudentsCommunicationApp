@@ -3,6 +3,10 @@ package com.example.college_students_communication_app.models;
 public class User {
     public String uid, email, username, phone;
 
+    public User(){
+
+    }
+
     public User(String uid, String email, String username, String phone) {
         this.uid = uid;
         this.email = email;
