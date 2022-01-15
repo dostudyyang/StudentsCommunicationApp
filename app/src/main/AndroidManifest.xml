@@ -11,12 +11,14 @@
         android:theme="@style/Theme.CollegeStudentsCommunicationApp">
         <activity
             android:name=".GroupChatActivity"
+            android:parentActivityName=".JoinGroupActivity"
             android:exported="false" />
         <activity
             android:name=".JoinGroupActivity"
             android:exported="false" />
         <activity
             android:name=".RegistrationActivity"
+            android:label="Sign Up"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
