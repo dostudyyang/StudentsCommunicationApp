@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Vincent Kipngeno"
         android:textSize="16sp"
         android:textColor="@color/secondaryColor"
         android:layout_marginBottom="2dp"
