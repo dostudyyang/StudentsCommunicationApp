@@ -109,7 +109,7 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
 
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
-            String hm = hour + ":" + minute;
+            String hm = String.format("%02d:%02d", hour, minute);
 
             if (currentUid.equals(groupMessages.get(getLayoutPosition()).getSenderId())){
 
