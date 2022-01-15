@@ -67,10 +67,9 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
 
         groupMessageAdapter = new GroupMessageAdapter(chats);
         linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
         binding.groupChatMessages.setLayoutManager(linearLayoutManager);
         binding.groupChatMessages.setAdapter(groupMessageAdapter);
-
-        binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
 
         binding.sendMessageButton.setOnClickListener(this);
     }
@@ -98,9 +97,8 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
                 chats.addAll(getChatsFromSqlLite());
 
                 groupMessageAdapter.notifyDataSetChanged();
+                binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
             }
-
-            binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
         }
 
         @Override
@@ -117,7 +115,6 @@ public class GroupChatActivity extends AppCompatActivity implements View.OnClick
 
         chats.clear();
         chats.addAll(getChatsFromSqlLite());
-        binding.groupChatMessages.smoothScrollToPosition(binding.groupChatMessages.getAdapter().getItemCount());
         RootRef.child("Chats").child(groupCode).addValueEventListener(chatValueEventListener);
     }
 
