@@ -11,17 +11,27 @@ import java.util.Map;
 public class Chat {
 
     public String message, senderId, groupCode;
+    public int label;
     public long time;
 
     public Chat(){
 
     }
 
-    public Chat(String message, String senderId, long time, String groupCode) {
+    public Chat(String message, String senderId, long time, String groupCode, int label) {
         this.message = message;
         this.senderId = senderId;
         this.time = time;
         this.groupCode = groupCode;
+        this.label = label;
+    }
+
+    public int getLabel() {
+        return label;
+    }
+
+    public void setLabel(int label) {
+        this.label = label;
     }
 
     public String getMessage() {
@@ -65,6 +75,7 @@ public class Chat {
         chatValues.put(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_SENDER, senderId);
         chatValues.put(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_GROUP_CODE, groupCode);
         chatValues.put(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_TIME, time);
+        chatValues.put(ChatDataReaderContract.ChatDataEntry.COLUMN_NAME_LABEL, label);
 
         return chatValues;
     }
